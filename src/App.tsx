@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import { useState } from "react";
 import { AppShell } from "@mantine/core";
 import { IdeasPage, PeoplePage, ChristmasPage } from "./pages";
-import Header from "./components/Header";
+import { Header } from "./components/Header/Header";
 
 export default function App() {
 

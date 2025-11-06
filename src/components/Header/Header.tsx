@@ -2,24 +2,24 @@ import React from "react";
 import { Group, Title, Button, Burger, Drawer, Stack, useMantineTheme } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
-export type PageLink<T extends string = string> = {
+interface PageLink<T extends string = string> {
   key: T;
   name: string;
 };
 
-type HeaderProps<T extends string = string> = {
+interface HeaderProps<T extends string = string> {
   title?: React.ReactNode;
   pages: PageLink<T>[];
   activeTab: T;
   onSwitchTab: (key: T) => void;
 };
 
-export default function Header<T extends string = string>({
+export const Header = <T extends string = string>({
   title = "wrapped",
   pages,
   activeTab,
-  onSwitchTab,
-}: HeaderProps<T>) {
+  onSwitchTab
+}: HeaderProps) => {
 
   const theme = useMantineTheme();
   const isDesktop = useMediaQuery(`(min-width: ${theme.breakpoints.sm})`);
@@ -64,4 +64,4 @@ export default function Header<T extends string = string>({
 
     </Group>
   );
-}
+};
