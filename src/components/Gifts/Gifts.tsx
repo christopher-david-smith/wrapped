@@ -16,7 +16,6 @@ export const Gift = (props: GiftProps) => {
   const handedOut: boolean = (props.ideaHandedOutCount ?? 0) > 0;
   return (
     <Card
-      className={handedOut ? styles.dim : undefined}
       shadow="sm"
       padding="lg"
       radius="md"
@@ -24,6 +23,7 @@ export const Gift = (props: GiftProps) => {
     >
       <Card.Section>
         <Image
+          className={handedOut ? styles.dim : undefined}
           src={PLACEHOLDER}
           height={160}
           fit="cover"
