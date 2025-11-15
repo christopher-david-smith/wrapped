@@ -21,23 +21,11 @@ export default function IdeasPage() {
   })
 
   useEffect(() => {
-    API.Gifts.list().then((data) => {
+    API.Gifts.all().then((data) => {
       setGifts(data);
       setLoading(false);
     });
   }, []);
-
-  const addGift = async (values) => {
-    const newGift = await API.Gifts.add({
-      "name": values.name
-    });
-    setGifts((prev) => [...prev, newGift]);
-  }
-
-  const deleteGift = async (id: string) => {
-    await API.Gifts.delete(id);
-    setGifts((prev) => prev.filter((gift) => gift.id !== id));
-  }
 
   if (loading) return <p>Loading...</p>
 
@@ -57,7 +45,7 @@ export default function IdeasPage() {
         centered
         radius="md"
       >
-        <form onSubmit={form.onSubmit((values) => addGift(values))}>
+        <form onSubmit={form.onSubmit((values) => console.log(values))}>
           <TextInput
             withAsterisk
             label="name"
