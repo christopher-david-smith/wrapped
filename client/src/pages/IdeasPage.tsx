@@ -1,24 +1,16 @@
 import { ResponseiveGrid } from "../components/ResponsiveGrid/ResponsiveGrid";
-import { Gift } from "../components/Gifts/Gifts";
+import { Gift, GiftProps } from "../components/Gifts/Gifts";
 import { Group, ActionIcon, Button, Modal, TagsInput, TextInput } from "@mantine/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
-
-const gifts = [
-  {
-    "name": "Footballs",
-    "handedOutCount": 1,
-  },
-  {
-    "name": "New Computer"
-  },
-  {
-    "name": "Christmas Tree",
-  }
-]
+import { API } from "../api/client";
 
 export default function IdeasPage() {
+
+  const [gifts, setGifts] = useState<GiftProps[]>([]);
+  const [loading, setLoading] = useState(true);
   const [opened, setOpened] = useState(false);
+
   const form = useForm({
     mode: 'uncontrolled',
     validate: {
@@ -27,13 +19,34 @@ export default function IdeasPage() {
       image: (value) => (/^https?:\/\/.*/.test(value) ? null : 'Invalid URL')
     }
   })
+
+  useEffect(() => {
+    API.Gifts.list().then((data) => {
+      setGifts(data);
+      setLoading(false);
+    });
+  }, []);
+
+  const addGift = async (values) => {
+    const newGift = await API.Gifts.add({
+      "name": values.name
+    });
+    setGifts((prev) => [...prev, newGift]);
+  }
+
+  const deleteGift = async (id: string) => {
+    await API.Gifts.delete(id);
+    setGifts((prev) => prev.filter((gift) => gift.id !== id));
+  }
+
+  if (loading) return <p>Loading...</p>
+
   return (
     <div>
       <ResponseiveGrid minWidth={300}>
         {gifts.map((gift) => (
           <Gift
-            name={gift.name}
-            ideaHandedOutCount={gift.handedOutCount}
+            {...gift}
           />
         ))}
       </ResponseiveGrid>
@@ -44,7 +57,7 @@ export default function IdeasPage() {
         centered
         radius="md"
       >
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit((values) => addGift(values))}>
           <TextInput
             withAsterisk
             label="name"

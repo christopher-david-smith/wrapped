@@ -2,7 +2,9 @@ import { IconLink, IconTrash } from "@tabler/icons-react";
 import { Card, Text, Group, Image, ActionIcon } from "@mantine/core";
 import styles from "./Gifts.module.scss"
 
-interface GiftProps {
+export interface GiftProps {
+  id: string;
+  createdAt: string;
   name: string;
   url?: string;
   image?: string;
@@ -35,9 +37,9 @@ export const Gift = (props: GiftProps) => {
         </Text>
         <Group gap="xs">
           <ActionIcon variant="filled"><IconLink /></ActionIcon>
-          <ActionIcon variant="filled" color="red"><IconTrash /></ActionIcon>
+          <ActionIcon component="a" variant="filled" color="red" href={`#delete?id=${props.id}`}><IconTrash /></ActionIcon>
         </Group>
       </Group>
-    </Card>
+    </Card >
   )
 }
