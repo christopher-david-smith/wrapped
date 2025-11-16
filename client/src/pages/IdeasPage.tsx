@@ -8,7 +8,6 @@ import { API } from "../api/client";
 export default function IdeasPage() {
 
   const [gifts, setGifts] = useState<GiftProps[]>([]);
-  const [loading, setLoading] = useState(true);
   const [opened, setOpened] = useState(false);
 
   const form = useForm({
@@ -38,11 +37,8 @@ export default function IdeasPage() {
   useEffect(() => {
     API.Gifts.all().then((data) => {
       setGifts(data);
-      setLoading(false);
     });
   }, []);
-
-  if (loading) return <p>Loading...</p>
 
   return (
     <div>
