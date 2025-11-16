@@ -13,11 +13,26 @@ export default function IdeasPage() {
 
   const form = useForm({
     mode: 'uncontrolled',
-    validate: {
-      name: (value) => (/.+/.test(value) ? null : 'Name cannot be empty'),
-      url: (value) => (/^https?:\/\/.*/.test(value) ? null : 'Invalid URL'),
-      image: (value) => (/^https?:\/\/.*/.test(value) ? null : 'Invalid URL')
-    }
+    validate: (values) => ({
+      name:
+        values.name === undefined
+          ? "Name cannot be empty"
+          : values.name.length == 0
+            ? "Name cannot be empty"
+            : null,
+      url:
+        values.url === undefined
+          ? null
+          : values.url.match(/^https?:\/\/.*/i) || values.url.length == 0
+            ? null
+            : "Invalid URL",
+      image:
+        values.image === undefined
+          ? null
+          : values.image.match(/^https?:\/\/.*/i) || values.image.length == 0
+            ? null
+            : "Invalid image URL"
+    })
   })
 
   useEffect(() => {
