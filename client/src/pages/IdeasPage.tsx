@@ -34,10 +34,26 @@ export default function IdeasPage() {
     })
   })
 
-  useEffect(() => {
+  async function loadGifts() {
     API.Gifts.all().then((data) => {
       setGifts(data);
-    });
+    })
+  }
+
+  async function addGift(data: any) {
+    API.Gifts.add(data).then(() => {
+      loadGifts();
+    })
+  }
+
+  async function deleteGift(id: number) {
+    API.Gifts.delete(id).then(() => {
+      loadGifts();
+    })
+  }
+
+  useEffect(() => {
+    loadGifts();
   }, []);
 
   return (
@@ -46,6 +62,7 @@ export default function IdeasPage() {
         {gifts.map((gift) => (
           <Gift
             {...gift}
+            onDelete={deleteGift}
           />
         ))}
       </ResponseiveGrid>
@@ -56,7 +73,12 @@ export default function IdeasPage() {
         centered
         radius="md"
       >
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form
+          onSubmit={form.onSubmit((values) => {
+            addGift(values);
+            setOpened(false);
+          })}
+        >
           <TextInput
             withAsterisk
             label="name"
