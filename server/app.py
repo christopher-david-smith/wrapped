@@ -2,13 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .database import create_db_and_tables
-from .routers import gifts, labels, people
-
+from .routes import gifts, labels, people
 
 app = FastAPI()
-app.include_router(gifts.router)
-app.include_router(labels.router)
-app.include_router(people.router)
+app.include_router(gifts)
+app.include_router(people)
+app.include_router(labels)
 
 app.add_middleware(
     CORSMiddleware,
