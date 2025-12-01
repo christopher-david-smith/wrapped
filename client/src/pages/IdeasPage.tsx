@@ -19,18 +19,6 @@ export default function IdeasPage() {
           : values.name.length == 0
             ? "Name cannot be empty"
             : null,
-      url:
-        values.url === undefined
-          ? null
-          : values.url.match(/^https?:\/\/.*/i) || values.url.length == 0
-            ? null
-            : "Invalid URL",
-      image:
-        values.image === undefined
-          ? null
-          : values.image.match(/^https?:\/\/.*/i) || values.image.length == 0
-            ? null
-            : "Invalid image URL"
     })
   })
 
@@ -85,20 +73,6 @@ export default function IdeasPage() {
             placeholder="Name..."
             key={form.key('name')}
             {...form.getInputProps('name')}
-          />
-          <TextInput
-            mt={20}
-            label="URL"
-            placeholder="http://..."
-            key={form.key('ur')}
-            {...form.getInputProps('url')}
-          />
-          <TextInput
-            mt={20}
-            label="Image"
-            placeholder="http://..."
-            key={form.key('image')}
-            {...form.getInputProps('image')}
           />
           <TagsInput
             mt={20}
