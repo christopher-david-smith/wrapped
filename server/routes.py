@@ -17,8 +17,8 @@ def get_gifts(session: session):
 
 
 @gifts.get("/{gift_id}", response_model=models.ReadGift)
-def get_gift(id: int, session: session):
-    return helpers.get_or_raise(session, models.Gift, id)
+def get_gift(gift_id: int, session: session):
+    return helpers.get_or_raise(session, models.Gift, gift_id)
 
 
 @gifts.post("/", response_model=models.ReadGift, status_code=201)
@@ -59,7 +59,7 @@ def update_gift(gift_id: int, gift: models.PatchGift, session: session):
 
 
 @gifts.delete("/{gift_id}", status_code=204)
-def delete_gift(gift_id, int, session: session):
+def delete_gift(gift_id: int, session: session):
     db_gift = helpers.get_or_raise(session, models.Gift, gift_id)
     session.delete(db_gift)
     session.commit()
@@ -71,8 +71,8 @@ def get_labels(session: session):
 
 
 @labels.get("/{label_id}", response_model=models.ReadLabel)
-def get_label(id: int, session: session):
-    return helpers.get_or_raise(session, models.Label, id)
+def get_label(label_id: int, session: session):
+    return helpers.get_or_raise(session, models.Label, label_id)
 
 
 @labels.post("/", response_model=models.ReadLabel, status_code=201)
@@ -84,8 +84,8 @@ def create_label(label: models.CreateLabel, session: session):
 
 
 @labels.patch("/{label_id}", response_model=models.ReadLabel)
-def update_label(id: int, label: models.PatchLabel, session: session):
-    db_label = helpers.get_or_raise(session, models.Label, id)
+def update_label(label_id: int, label: models.PatchLabel, session: session):
+    db_label = helpers.get_or_raise(session, models.Label, label_id)
     label_data = label.model_dump(exclude_unset=True)
     db_label.sqlmodel_update(label_data)
 
@@ -97,8 +97,8 @@ def update_label(id: int, label: models.PatchLabel, session: session):
 
 
 @labels.delete("/{label_id}", status_code=204)
-def delete_label(id: int, session: session):
-    db_label = helpers.get_or_raise(session, models.Label, id)
+def delete_label(label_id: int, session: session):
+    db_label = helpers.get_or_raise(session, models.Label, label_id)
     session.delete(db_label)
     session.commit()
 
@@ -109,8 +109,8 @@ def get_people(session: session):
 
 
 @people.get("/{person_id}", response_model=models.ReadPerson)
-def get_person(id: int, session: session):
-    return helpers.get_or_raise(session, models.Person, id)
+def get_person(person_id: int, session: session):
+    return helpers.get_or_raise(session, models.Person, person_id)
 
 
 @people.post("/", response_model=models.ReadPerson, status_code=201)
@@ -123,8 +123,8 @@ def create_person(person: models.CreatePerson, session: session):
 
 
 @people.patch("/{person_id}", response_model=models.ReadPerson)
-def update_person(id: int, person: models.PatchPerson, session: session):
-    db_person = helpers.get_or_raise(session, models.Person, id)
+def update_person(person_id: int, person: models.PatchPerson, session: session):
+    db_person = helpers.get_or_raise(session, models.Person, person_id)
     data = person.model_dump(exclude_unset=True)
     db_person.sqlmodel_update(data)
 
@@ -136,8 +136,8 @@ def update_person(id: int, person: models.PatchPerson, session: session):
 
 
 @people.delete("/{person_id}", status_code=204)
-def delete_person(id: int, session: session):
-    db_person = helpers.get_or_raise(session, models.Person, id)
+def delete_person(person_id: int, session: session):
+    db_person = helpers.get_or_raise(session, models.Person, person_id)
     session.delete(db_person)
     session.commit()
 
