@@ -21,7 +21,6 @@ class GiftLabelLink(SQLModel, table=True):
 class GiftBase(SQLModel):
     name: str = Field(index=True)
     description: str | None = None
-    url: str | None = None
 
 
 class Gift(GiftBase, table=True):
