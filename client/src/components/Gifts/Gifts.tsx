@@ -1,7 +1,5 @@
-import { IconLink, IconTrash } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import { Card, Text, Group, ActionIcon } from "@mantine/core";
-import styles from "./Gifts.module.scss"
-import { API } from "../../api/client";
 
 export interface GiftProps {
   id: number;
@@ -17,13 +15,15 @@ export const Gift = (props: GiftProps) => {
   return (
     <Card
       shadow="sm"
-      padding="lg"
+      padding="md"
       radius="md"
       withBorder
     >
-      <Text fw={700} size="lg">
-        {props.name}
-      </Text>
+      <Card.Section withBorder inheritPadding py="md">
+        <Text fw={700} size="lg">
+          {props.name}
+        </Text>
+      </Card.Section>
       <Group gap="xs" mt="lg">
         <ActionIcon
           component="a"
